@@ -27,14 +27,57 @@ class LinkedList{
             node.next = this.head;
             this.head = node;
         }
-        this.size++
+        this.size++;
+    }
+    
+    insert(value,index){
+        if(index < 0 || index>this.size){
+            return
+        }
+        if(index === 0){
+            this.prepend(value);
+        } else {
+            const node = new Node(value);
+            let prev = this.head;
+            for(let i=0; i<index-1; i++){
+                prev = prev.next;
+            }
+            node.next = prev.next;
+            prev.next = node;
+            this.size++;
+        }
+    }
+
+    print(){
+        if(this.isEmpty()){
+            console.log("List is empty");
+        }
+        else{
+            let curr = this.head;
+            let listValue = '';
+            while(curr){
+                listValue += `${curr.value} `;
+                curr = curr.next;
+            }
+            console.log(listValue);
+        }
     }
 }
 
 const list = new LinkedList();
 console.log("is list empty?", list.isEmpty());
-console.log("Size of lit", list.getSize())
+console.log("Size of list", list.getSize())
+list.print();
+list.insert(10,0);
+list.print();
 
-list.prepend(10);
-list.prepend(20);
-list.prepend(30);
+list.insert(20,0);
+list.print();
+
+list.insert(30,1);
+list.print();
+
+list.insert(40,2);
+list.print();
+
+console.log(list.getSize());
